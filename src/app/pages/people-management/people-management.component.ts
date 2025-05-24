@@ -9,21 +9,15 @@ import {NgFor, NgIf} from '@angular/common';
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
 import {BaseUserConfig, StudentConfig, TutorConfig} from './config/people-config';
-import {User} from './models/users.dto';
-
-interface Participant {
-  fullName: string;
-  email: string;
-  role: string;
-  groupNumber?: number;
-}
+import {Student, StudentViewDto, Tutor, TutorViewDto, User} from './models/users.dto';
+import ParticipantItemComponent from './participant-item/participant-item.component';
 
 enum USER_TYPES {
  STUDENT = "STUDENT",
  TUTOR = "TUTOR"
 }
 
-const UserConfigResolver = {
+const userConfigResolver = {
   [USER_TYPES.STUDENT]: StudentConfig,
   [USER_TYPES.TUTOR]: TutorConfig
 }
@@ -40,31 +34,35 @@ const UserConfigResolver = {
     NgIf,
     MatButton,
     MatIcon,
-    MatIconButton
+    MatIconButton,
+    ParticipantItemComponent
   ],
   templateUrl: './people-management.component.html',
   styleUrl: './people-management.component.css'
 })
 export default class PeopleManagementComponent {
-  participants: Participant[] = [
+  participants: (TutorViewDto | StudentViewDto)[] = [
     {
-      fullName: 'Alice Johnson',
+      name: 'Alice Johnson',
       email: 'alice@example.com',
-      role: 'Student',
-      groupNumber: 1
+      group: "1a"
     },
     {
-      fullName: 'Bob Smith',
+      name: 'Bob Smith',
       email: 'bob@example.com',
-      role: 'Mentor'
     },
     {
-      fullName: 'Carol White',
+      name: 'Carol White',
       email: 'carol@example.com',
-      role: 'Student',
-      groupNumber: 2
+      group: ""
     }
   ];
+
+  public resolveConfig(participant: StudentViewDto | TutorViewDto): StudentConfig | TutorConfig {
+    if(participant.hasOwnProperty('group'))
+      return new userConfigResolver[USER_TYPES.STUDENT]();
+    return new userConfigResolver[USER_TYPES.TUTOR]();
+  }
 
   click(e: MouseEvent) {
     e.stopPropagation();

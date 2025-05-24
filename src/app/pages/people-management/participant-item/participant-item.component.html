@@ -1,1 +1,20 @@
-<p>participant-item works!</p>
+<mat-accordion>
+    <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <div>{{ participant.name }} - {{ participant.email }}</div>
+      </mat-panel-title>
+      <div class="button-wrapper">
+        <button mat-icon-button (click)="click($event)">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </div>
+    </mat-expansion-panel-header>
+
+    <div>
+      <p>
+        <strong>Group Number:</strong> {{ participant.group }}
+      </p>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
