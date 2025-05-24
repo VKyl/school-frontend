@@ -2,7 +2,7 @@
     <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <div>{{ tutor.name }} - {{ tutor.email }}</div>
+        <div>{{ tutor.pib }} - {{ tutor.email }}</div>
       </mat-panel-title>
       <div class="button-wrapper">
         <button mat-icon-button (click)="edit($event)">
@@ -15,9 +15,6 @@
     </mat-expansion-panel-header>
 
     <div>
-      <p>
-        <strong>Предмет:</strong> {{tutor.subject}}
-      </p>
     </div>
   </mat-expansion-panel>
 </mat-accordion>

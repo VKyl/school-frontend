@@ -37,9 +37,8 @@ export class UpsertModalComponent implements OnInit{
   readonly data = inject(MAT_DIALOG_DATA);
 
   teacherForm = this.fb.group({
-    name: ['', Validators.required],
+    pib: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
-    subject: ['', Validators.required],
   });
 
   ngOnInit() {

@@ -49,15 +49,23 @@ export default class HeaderComponent {
             link: '/'
           },
           {
-            label: 'Вчителі',
-            link: '/manage-participants'
-          },
-          {
             label: 'Заучі',
             link: '/manage-participants/head-tutors'
           },
+        ]);
+      }
+      if (this.sessionAccessFacadeService.hasRoleAccess(UserRole.HEAD_TEACHER)) {
+        this.$menuItems.set([
           {
-            label: 'Персональний помічник',
+            label: 'Головна',
+            link: '/'
+          },
+          {
+           label: 'Вчителі',
+           link: '/manage-participants/tutors'
+          },
+          {
+            label: 'Твій помічник',
             link: 'assignment-helper'
           }
         ]);

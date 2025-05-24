@@ -1,4 +1,4 @@
-import {Component, inject, signal} from '@angular/core';
+import {Component, inject, OnInit, signal} from '@angular/core';
 import {
   MatAccordion,
   MatExpansionPanel,
@@ -8,37 +8,13 @@ import {
 import {NgFor, NgIf} from '@angular/common';
 import {MatButtonModule, MatIconButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
-import {UserRole} from '../../../core/models/constants'
-import {Tutor} from '../../../core/models/users.dto';
 import TutorItemComponent from './tutor-item/tutor-item.component';
 import {MatDialog} from '@angular/material/dialog';
 import {UpsertModalComponent} from './modals/upsert-modal/upsert-modal.component';
 import {filter, first} from 'rxjs';
-// import {UserService} from '../../../core/school.service';
+import {UserLoginDto, UserRole} from '../../../core/models/constants';
+import {TeacherResponseDto, TeacherService} from '../../../core/teachers.service';
 
-const mockTutors: Tutor[] = [
-  {
-    id: "1",
-    name: 'Alice Johnson',
-    email: 'alice@example.com',
-    subject: "Math",
-    userRole: UserRole.TEACHER
-  },
-  {
-    id: "2",
-    name: 'Bob Smith',
-    email: 'bob@example.com',
-    subject: "Math",
-    userRole: UserRole.TEACHER
-  },
-  {
-    id: "3",
-    name: 'Carol White',
-    email: 'carol@example.com',
-    subject: "Math",
-    userRole: UserRole.TEACHER
-  }
-];
 
 @Component({
   selector: 'app-tutor-management',
@@ -58,11 +34,19 @@ const mockTutors: Tutor[] = [
   templateUrl: './tutor-management.component.html',
   styleUrl: './tutor-management.component.css'
 })
-export default class TutorManagementComponent {
+export default class TutorManagementComponent implements OnInit{
   private readonly dialog = inject(MatDialog);
   // private readonly service = inject(UserService);
 
-  $tutors = signal(mockTutors);
+  $tutors = signal([] as TeacherResponseDto[]);
+  private readonly  schoolId = 1;
+  private readonly service = inject(TeacherService);
+
+  ngOnInit() {
+    this.service.getListOfTeachers().subscribe(
+      (tutors) => this.$tutors.set(tutors as unknown as TeacherResponseDto[]),
+    )
+  }
 
   openCreateTeacherDialog() {
     const dialogRef = this.dialog.open(UpsertModalComponent);
@@ -74,17 +58,19 @@ export default class TutorManagementComponent {
       )
       .subscribe(result => {
         console.log('Новий викладач:', result);
+        this.service.create({...result, role: UserRole.TEACHER}, this.schoolId).subscribe(
+          () => this.$tutors.update(
+            (prev) => {
+              prev.push({id: 1, ...result});
+              return prev;
+            }
+          )
+        );
         // this.service.create(result, UserRole.TEACHER).subscribe();
       });
   }
 
-  saveEdit(tutor: Tutor) {
-    this.$tutors.update(
-      (prev) => {
-        return prev.map(
-          (t) => t.id === tutor.id ? {...tutor} : t
-        );
-      }
-    )
+  saveEdit(tutor: TeacherResponseDto) {
+
   }
 }

@@ -12,3 +12,4 @@ export interface SchoolDto {
   classesIds: Set<number>;
   subjectsIds: Set<number>;
 }
+

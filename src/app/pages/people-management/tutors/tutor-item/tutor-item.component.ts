@@ -13,6 +13,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {UserDeleteModalComponent} from '../modals/user-delete-modal/user-delete-modal.component';
 import {filter, first} from 'rxjs';
 import {UpsertModalComponent} from '../modals/upsert-modal/upsert-modal.component';
+import {TeacherResponseDto} from '../../../../core/teachers.service';
 
 @Component({
   selector: 'app-tutor-item',
@@ -30,8 +31,8 @@ import {UpsertModalComponent} from '../modals/upsert-modal/upsert-modal.componen
   styleUrl: './tutor-item.component.css'
 })
 export default class TutorItemComponent {
-  @Input({required: true}) tutor!: Tutor;
-  @Output() onEdit = new EventEmitter<Tutor>();
+  @Input({required: true}) tutor!: TeacherResponseDto;
+  @Output() onEdit = new EventEmitter<TeacherResponseDto>();
 
   private readonly modal = inject(MatDialog);
 
@@ -53,7 +54,7 @@ export default class TutorItemComponent {
     e.stopPropagation();
    this.modal.open(UserDeleteModalComponent, {
      data: {
-       name: this.tutor.name,
+       name: this.tutor.pib,
        email: this.tutor.email
      }
    }).afterClosed().pipe(
