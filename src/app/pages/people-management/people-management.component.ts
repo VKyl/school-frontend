@@ -54,7 +54,7 @@ export default class PeopleManagementComponent {
     {
       name: 'Carol White',
       email: 'carol@example.com',
-      group: ""
+      group: "2a"
     }
   ];
 
