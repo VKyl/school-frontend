@@ -1,6 +1,6 @@
 .landing-wrapper {
   position: relative;
-  min-height: 100vh;
+  height: calc(100vh - 64px);
   overflow: hidden;
   background: radial-gradient(ellipse at bottom, #e8f0fe 0%, #ffffff 100%);
   color: #5a5a5a;
