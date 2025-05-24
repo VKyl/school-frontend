@@ -1,8 +1,8 @@
 export enum UserRole {
-  ADMIN,
-  HEAD_TEACHER,
-  TEACHER,
-  STUDENT
+  ADMIN = 'ADMIN',
+  HEAD_TEACHER = 'HEAD_TEACHER',
+  TEACHER = 'TEACHER',
+  STUDENT = 'STUDENT'
 }
 
 export interface UserRegistrationDto {

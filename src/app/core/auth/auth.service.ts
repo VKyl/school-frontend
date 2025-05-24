@@ -23,7 +23,7 @@ export class AuthService {
   userDataLoaded$ = new BehaviorSubject<boolean>(false);
 
   login(credentials: UserLoginDto) {
-    return this.http.post<LoginResponse>(`${environment.apiUrl}/api/auth/login`, credentials).pipe(
+    return this.http.post<LoginResponse>(`${environment.apiUrl}/api/auth/login`, credentials, { withCredentials: true }).pipe(
       first(),
       tap((res) => this.setUser(res)),
     );
