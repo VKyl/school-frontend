@@ -7,6 +7,7 @@ import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
 
 @Component({
   selector: 'app-header',
+  standalone: true,
   imports: [
     MatToolbar,
     MatIcon,
@@ -20,7 +21,7 @@ import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
-export class HeaderComponent {
+export default class HeaderComponent {
   @Output() menuToggle = new EventEmitter<void>();
   userRole = 'Викладач';
 

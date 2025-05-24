@@ -1,0 +1,76 @@
+.landing-wrapper {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.hero-content {
+  z-index: 10;
+  padding: 20px;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.brand {
+  color: #3f51b5;
+}
+
+.spaceship {
+  position: absolute;
+  bottom: 10%;
+  left: -10%;
+  animation: flyAcross 15s linear infinite;
+}
+
+@keyframes flyAcross {
+  0% {
+    transform: translateX(0) rotate(0deg);
+  }
+  100% {
+    transform: translateX(120vw) rotate(360deg);
+  }
+}
+
+
+/* Starfield Animation */
+.stars, .stars2, .stars3 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent url('/assets/stars.svg') repeat;
+  z-index: 0;
+  animation: moveStars 200s linear infinite;
+}
+
+.stars2 {
+  background-image: url('/assets/stars2.svg');
+  animation-duration: 300s;
+  opacity: 0.5;
+}
+
+.stars3 {
+  background-image: url('/assets/stars3.svg');
+  animation-duration: 400s;
+  opacity: 0.3;
+}
+
+@keyframes moveStars {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-1000px);
+  }
+}

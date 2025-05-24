@@ -4,6 +4,14 @@
   text-align: center;
 }
 
+.footer.dark {
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 70%);
+
+  p{
+    color: #f7f7f7;
+  }
+}
+
 .footer-content {
   max-width: 1000px;
   margin: 0 auto;
@@ -28,3 +36,4 @@
 .links-section a:hover {
   text-decoration: underline;
 }
+
