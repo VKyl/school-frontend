@@ -1,8 +1,10 @@
 import {inject, Injectable} from '@angular/core';
-import {UserRole, UserViewDto} from './users.dto';
+import {UserViewDto} from './models/users.dto';
+import {UserRole} from './models/constants';
 import {first} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
-import {environment} from '../../../environments/environment';
+import {environment} from '../../environments/environment';
+import {tap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +12,7 @@ import {environment} from '../../../environments/environment';
 export class UserService {
   private readonly http = inject(HttpClient);
   create(user: UserViewDto, role: UserRole){
-    return this.http.put(
+    return this.http.post(
       `${environment.apiUrl}/api/user/create`,
       {
         role: role,
@@ -19,6 +21,10 @@ export class UserService {
       }
     ).pipe(
       first(),
+      tap((res) => {
+        console.log(res)
+        return res;
+      })
     );
   }
 }

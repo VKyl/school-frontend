@@ -45,14 +45,17 @@ export default class HeaderComponent {
       if (this.sessionAccessFacadeService.hasRoleAccess(UserRole.ADMIN)) {
         this.$menuItems.set([
           {
-            label: 'Main',
+            label: 'Головна',
             link: '/'
           },
           {
-            label: 'Teachers',
+            label: 'Вчителі',
             link: '/manage-participants'
           },
-
+          {
+            label: 'Заучі',
+            link: '/manage-participants/head-tutors'
+          }
         ]);
       }
     });

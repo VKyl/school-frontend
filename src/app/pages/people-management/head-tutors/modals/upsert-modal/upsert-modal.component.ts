@@ -39,7 +39,6 @@ export class UpsertModalComponent implements OnInit{
   teacherForm = this.fb.group({
     name: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
-    subject: ['', Validators.required],
   });
 
   ngOnInit() {

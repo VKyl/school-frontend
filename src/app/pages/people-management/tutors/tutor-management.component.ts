@@ -8,12 +8,13 @@ import {
 import {NgFor, NgIf} from '@angular/common';
 import {MatButtonModule, MatIconButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
-import {Tutor, UserRole} from '../../../core/models/users.dto';
+import {UserRole} from '../../../core/models/constants'
+import {Tutor} from '../../../core/models/users.dto';
 import TutorItemComponent from './tutor-item/tutor-item.component';
 import {MatDialog} from '@angular/material/dialog';
 import {UpsertModalComponent} from './modals/upsert-modal/upsert-modal.component';
 import {filter, first} from 'rxjs';
-import {UserService} from '../../../core/models/user.service';
+import {UserService} from '../../../core/user.service';
 
 const mockTutors: Tutor[] = [
     {
@@ -73,7 +74,7 @@ export default class TutorManagementComponent {
       )
       .subscribe(result => {
         console.log('Новий викладач:', result);
-        this.service.create(result, UserRole.TEACHER);
+        this.service.create(result, UserRole.TEACHER).subscribe();
       });
   }
 
