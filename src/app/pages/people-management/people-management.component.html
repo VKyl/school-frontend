@@ -1,1 +1,23 @@
-<p>people-management works!</p>
+<div class="management-container">
+  <mat-accordion *ngFor="let participant of participants">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <div>{{ participant.fullName }} - {{ participant.email }}</div>
+      </mat-panel-title>
+      <div class="button-wrapper">
+        <button mat-icon-button (click)="click($event)">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </div>
+    </mat-expansion-panel-header>
+
+    <div>
+      <p><strong>Role:</strong> {{ participant.role }}</p>
+      <p *ngIf="participant.groupNumber !== undefined">
+        <strong>Group Number:</strong> {{ participant.groupNumber }}
+      </p>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
+</div>

@@ -1,0 +1,16 @@
+mat-accordion {
+  width: 100%;
+  max-width: 800px;
+}
+
+.management-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.button-wrapper{
+  display: flex;
+  justify-content: center;
+  padding: 0 15px;
+}
