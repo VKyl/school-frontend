@@ -1,0 +1,30 @@
+.footer {
+  background-color: #f5f5f5;
+  padding: 24px;
+  text-align: center;
+}
+
+.footer-content {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.logo-section h3 {
+  margin: 0;
+  font-weight: bold;
+  color: #3f51b5;
+}
+
+.links-section {
+  margin: 16px 0;
+}
+
+.links-section a {
+  margin: 0 8px;
+  text-decoration: none;
+  color: #3f51b5;
+}
+
+.links-section a:hover {
+  text-decoration: underline;
+}

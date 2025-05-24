@@ -1,4 +1,4 @@
-import {Component, inject, Input} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogActions,
@@ -7,7 +7,7 @@ import {
   MatDialogRef,
   MatDialogTitle
 } from '@angular/material/dialog';
-import {MatButton} from '@angular/material/button';
+import {MatButton, MatButtonModule} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
 
 @Component({
@@ -18,8 +18,8 @@ import {MatIcon} from '@angular/material/icon';
     MatDialogActions,
     MatDialogTitle,
     MatButton,
-    MatDialogClose,
-    MatIcon
+    MatIcon,
+    MatButtonModule
   ],
   templateUrl: './user-delete-modal.component.html',
   styleUrl: './user-delete-modal.component.css'
