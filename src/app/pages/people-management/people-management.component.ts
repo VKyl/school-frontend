@@ -6,14 +6,26 @@ import {
   MatExpansionPanelTitle
 } from '@angular/material/expansion';
 import {NgFor, NgIf} from '@angular/common';
-import {MatButton} from '@angular/material/button';
+import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
+import {BaseUserConfig, StudentConfig, TutorConfig} from './config/people-config';
+import {User} from './models/users.dto';
 
 interface Participant {
   fullName: string;
   email: string;
   role: string;
   groupNumber?: number;
+}
+
+enum USER_TYPES {
+ STUDENT = "STUDENT",
+ TUTOR = "TUTOR"
+}
+
+const UserConfigResolver = {
+  [USER_TYPES.STUDENT]: StudentConfig,
+  [USER_TYPES.TUTOR]: TutorConfig
 }
 
 @Component({
@@ -27,7 +39,8 @@ interface Participant {
     NgFor,
     NgIf,
     MatButton,
-    MatIcon
+    MatIcon,
+    MatIconButton
   ],
   templateUrl: './people-management.component.html',
   styleUrl: './people-management.component.css'
