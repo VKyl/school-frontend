@@ -1,0 +1,96 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #3f51b5 0%, #ec407a 100%);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.login-card {
+  max-width: 450px;
+  width: 100%;
+  padding: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* mat-card-header styling */
+.login-card mat-card-header { /* Targeting child element */
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.login-card mat-card-title { /* Targeting child element */
+  font-size: 28px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.login-card mat-card-subtitle { /* Targeting child element */
+  font-size: 16px;
+  color: #757575; /* Example: Grey 600 */
+}
+
+.full-width {
+  width: 100%;
+}
+
+/* Login Actions */
+.login-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+  margin-bottom: 16px;
+}
+
+.login-actions .forgot-password-link { /* Targeting child element */
+  font-size: 14px;
+  /* text-decoration: none; */ /* mat-button usually handles this */
+}
+
+.login-button {
+  min-width: 120px;
+  padding: 10px 20px;
+  font-size: 16px;
+  display: flex; /* For aligning spinner and text */
+  align-items: center;
+  justify-content: center;
+}
+
+.login-button .button-spinner { /* Targeting child element */
+  margin-right: 8px;
+}
+
+/* mat-card-actions styling */
+.login-card mat-card-actions { /* Targeting child element */
+  padding-top: 20px;
+  border-top: 1px solid #eeeeee; /* Example: Grey 200 */
+  text-align: center; /* if you want the content centered */
+}
+
+.login-card mat-card-actions p { /* Targeting child element */
+  margin: 0;
+  font-size: 14px;
+}
