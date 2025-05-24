@@ -8,28 +8,33 @@
 
   <span class="spacer"></span>
 
+  <!-- Навігація -->
   <nav class="hide-mobile">
-    <a mat-button routerLink="/">Головна</a>
-    <a mat-button routerLink="/manage-participants/head-tutors">Заучі</a>
-    <a mat-button routerLink="/manage-participants">Викладачі</a>
-    <a mat-button routerLink="/students">Учні</a>
-    <a mat-button routerLink="/subjects">Предмети</a>
-    <a mat-button routerLink="/homeworks">Домашки</a>
+    @for(item of $menuItems(); track item) {
+      <a mat-button [routerLink]="item.link">{{ item.label }}</a>
+    }
   </nav>
 
+  <!-- Меню користувача -->
   <button mat-icon-button [matMenuTriggerFor]="userMenu">
     <mat-icon>account_circle</mat-icon>
   </button>
 
   <mat-menu #userMenu="matMenu">
-    <button mat-menu-item disabled>
-      <mat-icon>person</mat-icon>
-      {{ userRole }}
-    </button>
-    <button mat-menu-item (click)="logout()">
-      <mat-icon>logout</mat-icon>
-      Вийти
-    </button>
+    @if (sessionService.getUser()) {
+      <button mat-menu-item disabled>
+        <mat-icon>person</mat-icon>
+        {{ userRole }}
+      </button>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        Вийти
+      </button>
+    } @else {
+      <button mat-menu-item routerLink="/login">
+        Log In
+      </button>
+    }
   </mat-menu>
 
 </mat-toolbar>

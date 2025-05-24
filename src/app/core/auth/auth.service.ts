@@ -1,7 +1,10 @@
-// src/app/auth/auth.service.ts
-import {Injectable, signal} from '@angular/core';
-import {BehaviorSubject, map, Observable, of, throwError} from 'rxjs';
-import { delay, tap } from 'rxjs/operators';
+import {inject, Injectable, signal} from '@angular/core';
+import {BehaviorSubject, catchError, first, of} from 'rxjs';
+import {tap} from 'rxjs/operators';
+import {LoginResponse, UserLoginDto} from '../models/constants';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../../environments/environment';
+import {Router} from '@angular/router';
 
 export interface AuthResponse {
   token: string;
@@ -13,68 +16,50 @@ export interface AuthResponse {
   providedIn: 'root',
 })
 export class AuthService {
+  private readonly http = inject(HttpClient);
+  private readonly router = inject(Router);
 
-  $user= signal<any>(null);
+  $user = signal<LoginResponse | null>(null);
   userDataLoaded$ = new BehaviorSubject<boolean>(false);
 
-  login(credentials: { email?: string | null; password?: string | null }): Observable<AuthResponse> {
-    // Simulate API call
-    return of(null).pipe(
-      delay(1500), // Simulate network latency
-      tap(() => {
-        if (
-          credentials.email === 'test@example.com' &&
-          credentials.password === 'password123'
-        ) {
-          // Simulate successful login
-          const mockResponse: AuthResponse = {
-            token: 'fake-jwt-token-12345',
-            username: 'TestUser',
-            email: credentials.email,
-          };
-          localStorage.setItem('authToken', mockResponse.token); // Basic token storage
-          localStorage.setItem('username', mockResponse.username);
-          // In a real app, you'd navigate to a dashboard or emit an event
-          console.log('Login successful', mockResponse);
-        } else {
-          // Simulate failed login
-          console.error('Login failed: Invalid credentials');
-          throw new Error('Invalid email or password.');
-        }
-      }),
-      // This part will only be reached on success due to throwError
-      map(() => ({
-        token: 'fake-jwt-token-12345',
-        username: 'TestUser',
-        email: credentials.email as string,
-      }))
+  login(credentials: UserLoginDto) {
+    return this.http.post<LoginResponse>(`${environment.apiUrl}/api/auth/login`, credentials).pipe(
+      first(),
+      tap((res) => this.setUser(res)),
     );
   }
 
+  reloadUser() {
+    return this.http.get<LoginResponse>(`${environment.apiUrl}/api/auth/get_current_role`)
+      .pipe(
+        catchError(() => {
+          this.logout();
+          return of(null);
+        }),
+        tap((res) => {
+            this.setUser(res);
+            this.setUserDataAsLoaded();
+          },
+        )
+      );
+  }
+
   logout(): void {
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('username');
-    // In a real app, you'd navigate to the login page
-    console.log('User logged out');
+    this.setUser(null);
+    if (localStorage.getItem('userId')) this.router.navigate(['/login']);
+    localStorage.clear();
   }
 
   getUser() {
     return this.$user();
   }
 
-  setUser(user: any) {
+  setUser(user: LoginResponse | null): void {
+    if (user) localStorage.setItem('userId', String(user.id));
     this.$user.set(user);
-  }
-
-  isAuthenticated(): boolean {
-    return !!localStorage.getItem('authToken');
   }
 
   setUserDataAsLoaded(): void {
     this.userDataLoaded$.next(true);
-  }
-
-  getUsername(): string | null {
-    return localStorage.getItem('username');
   }
 }

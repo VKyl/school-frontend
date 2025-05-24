@@ -37,8 +37,7 @@ import {AuthService} from '../../core/auth/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export default class LoginComponent implements OnInit {
-  loginForm!: FormGroup;
+export default class LoginComponent {
   isLoading = false;
   hidePassword = true;
 
@@ -47,14 +46,10 @@ export default class LoginComponent implements OnInit {
   private router = inject(Router);
   private snackBar = inject(MatSnackBar);
 
-  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
-
-  ngOnInit(): void {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-    });
-  }
+  loginForm: FormGroup = this.fb.group({
+    username: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(8)]],
+  });
 
   get email() {
     return this.loginForm.get('email');
@@ -65,31 +60,27 @@ export default class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.loginForm.invalid) {
-      this.loginForm.markAllAsTouched(); // Mark fields as touched to show errors
-      return;
-    }
+    if (this.loginForm.invalid) return this.loginForm.markAllAsTouched();
 
     this.isLoading = true;
     this.authService.login(this.loginForm.value).subscribe({
       next: (response) => {
         this.isLoading = false;
         this.snackBar.open(
-          `Welcome back, ${response.username}! Login successful.`,
+          `Welcome back! Login successful.`,
           'Close',
           {
             duration: 3000,
-            panelClass: ['success-snackbar'], // For custom styling
+            panelClass: ['success-snackbar'],
           }
         );
-        // Navigate to a protected route, e.g., dashboard
-        this.router.navigate(['/dashboard']); // Make sure '/dashboard' route exists
+        this.router.navigate(['/']);
       },
       error: (err) => {
         this.isLoading = false;
         this.snackBar.open(err.message || 'Login failed. Please try again.', 'Close', {
           duration: 5000,
-          panelClass: ['error-snackbar'], // For custom styling
+          panelClass: ['error-snackbar'],
         });
       },
     });
