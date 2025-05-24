@@ -4,9 +4,9 @@
   </button>
 </div>
 <div class="management-container">
-  <app-participant-item
-    *ngFor="let p of participants"
-    [config]="resolveConfig(p)"
-    [participant]="p"
+  <app-tutor-item
+    *ngFor="let t of $tutors()"
+    [tutor]="t"
+    (onEdit)="saveEdit($event)"
   />
 </div>

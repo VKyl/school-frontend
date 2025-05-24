@@ -1,5 +1,6 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {
+  MAT_DIALOG_DATA,
   MatDialogActions,
   MatDialogClose,
   MatDialogContent,
@@ -11,11 +12,9 @@ import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatError, MatFormField, MatInput, MatLabel} from '@angular/material/input';
 import {NgIf} from '@angular/common';
 
-class CreateTeacherDialogComponent {
-}
-
 @Component({
   selector: 'app-upsert-modal',
+  standalone: true,
   imports: [
     MatDialogTitle,
     MatDialogContent,
@@ -32,20 +31,25 @@ class CreateTeacherDialogComponent {
   templateUrl: './upsert-modal.component.html',
   styleUrl: './upsert-modal.component.css'
 })
-export class UpsertModalComponent {
+export class UpsertModalComponent implements OnInit{
   private readonly fb = inject(FormBuilder);
   private readonly dialogRef = inject(MatDialogRef<UpsertModalComponent>);
+  readonly data = inject(MAT_DIALOG_DATA);
 
   teacherForm = this.fb.group({
-    fullName: ['', Validators.required],
+    name: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
     subject: ['', Validators.required],
   });
 
+  ngOnInit() {
+    if(!this.data) return;
+    this.teacherForm.patchValue(this.data);
+  }
+
   onSave() {
-    if (this.teacherForm.valid) {
-      this.dialogRef.close(this.teacherForm.value);
-    }
+    if (this.teacherForm.invalid) return this.teacherForm.markAllAsTouched();
+    return this.dialogRef.close(this.teacherForm.value);
   }
 
   onCancel() {

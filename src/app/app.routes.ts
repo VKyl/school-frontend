@@ -3,8 +3,8 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     title: "Manage Participants",
-    path: "manage-participants",
-    loadComponent: () => import('./pages/people-management/people-management.component')
+    path: "manage-participants/tutors",
+    loadComponent: () => import('./pages/people-management/tutor-management.component')
   },
   {
     title: 'Login',

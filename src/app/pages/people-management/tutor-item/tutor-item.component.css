@@ -1,13 +1,16 @@
+mat-panel-title{
+  user-select: none;
+}
+
+.shadow-text{
+  color: #cccccc;
+}
+
 mat-accordion {
   width: 100%;
   max-width: 800px;
 }
 
-.management-container {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
 
 .button-wrapper{
   display: flex;
