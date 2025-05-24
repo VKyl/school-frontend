@@ -27,6 +27,7 @@ import {MatIcon} from '@angular/material/icon';
 export class UserDeleteModalComponent {
 
   private readonly modal = inject(MatDialogRef);
+
   readonly data = inject(MAT_DIALOG_DATA);
 
   confirm(){

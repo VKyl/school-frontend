@@ -4,7 +4,7 @@ export const routes: Routes = [
   {
     title: "Manage Participants",
     path: "manage-participants",
-    loadComponent: () => import('./pages/people-management/people-management.component')
+    loadChildren: () => import("./pages/people-management/routes").then(r => r.ROUTES)
   },
   {
     title: 'Login',

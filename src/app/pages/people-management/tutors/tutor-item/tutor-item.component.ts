@@ -1,4 +1,4 @@
-import {Component, inject, Input} from '@angular/core';
+import {Component, EventEmitter, inject, Input, Output} from '@angular/core';
 import {
   MatAccordion,
   MatExpansionPanel,
@@ -7,15 +7,15 @@ import {
 } from '@angular/material/expansion';
 import {MatIconButton} from '@angular/material/button';
 import {NgIf} from '@angular/common';
-import {ParticipantViewDto} from '../models/users.dto';
+import {Tutor} from '../models/users.dto';
 import {MatIcon} from '@angular/material/icon';
-import {BaseUserConfig} from '../config/people-config';
 import {MatDialog} from '@angular/material/dialog';
 import {UserDeleteModalComponent} from '../modals/user-delete-modal/user-delete-modal.component';
 import {filter, first} from 'rxjs';
+import {UpsertModalComponent} from '../modals/upsert-modal/upsert-modal.component';
 
 @Component({
-  selector: 'app-participant-item',
+  selector: 'app-tutor-item',
   standalone: true,
   imports: [
     MatAccordion,
@@ -26,26 +26,35 @@ import {filter, first} from 'rxjs';
     MatIconButton,
     NgIf
   ],
-  templateUrl: './participant-item.component.html',
-  styleUrl: './participant-item.component.css'
+  templateUrl: './tutor-item.component.html',
+  styleUrl: './tutor-item.component.css'
 })
-export default class ParticipantItemComponent {
-  @Input({required: true}) participant!: ParticipantViewDto;
-  @Input({required: true}) config!: BaseUserConfig<any>;
+export default class TutorItemComponent {
+  @Input({required: true}) tutor!: Tutor;
+  @Output() onEdit = new EventEmitter<Tutor>();
 
   private readonly modal = inject(MatDialog);
 
   edit(e: MouseEvent){
     e.stopPropagation();
-    console.log("edit")
+    this.modal.open(UpsertModalComponent, {
+      data: this.tutor
+    }).afterClosed().pipe(
+      first(),
+      filter(de => !!de)
+   ).subscribe(
+      (res) => {
+        this.onEdit.emit({id: this.tutor.id, ...res});
+      }
+   );
   }
 
   delete(e: MouseEvent){
     e.stopPropagation();
    this.modal.open(UserDeleteModalComponent, {
      data: {
-       name: this.participant.name,
-       email: this.participant.email
+       name: this.tutor.name,
+       email: this.tutor.email
      }
    }).afterClosed().pipe(
       first(),

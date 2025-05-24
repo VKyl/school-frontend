@@ -2,7 +2,7 @@
     <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <div>{{ participant.name }} - {{ participant.email }}</div>
+        <div>{{ tutor.name }} - {{ tutor.email }}</div>
       </mat-panel-title>
       <div class="button-wrapper">
         <button mat-icon-button (click)="edit($event)">
@@ -15,8 +15,8 @@
     </mat-expansion-panel-header>
 
     <div>
-      <p *ngIf="config.getFieldByName('group')">
-        <strong>Group Number:</strong> {{ $any(participant).group }}
+      <p>
+        <strong>Subject:</strong> {{tutor.subject}}
       </p>
     </div>
   </mat-expansion-panel>

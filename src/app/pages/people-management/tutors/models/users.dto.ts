@@ -1,5 +1,5 @@
 export type User = {
-  id: number;
+  id: string;
   name: string;
   email: string;
 }
@@ -9,9 +9,9 @@ export type UserViewDto = {
   email: string;
 }
 
-export type Tutor = User;
+export type Tutor = User & {subject: string};
 
-export type TutorViewDto = UserViewDto;
+export type TutorViewDto = UserViewDto & {subject: string};
 
 export type Student = User & {
   group: string;

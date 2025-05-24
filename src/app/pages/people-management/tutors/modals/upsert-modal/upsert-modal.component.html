@@ -4,8 +4,8 @@
   <div class="d-flex flex-column">
     <mat-form-field appearance="fill" class="w-full mb-4">
       <mat-label>ПІБ</mat-label>
-      <input matInput formControlName="fullName" />
-      <mat-error *ngIf="teacherForm.get('fullName')?.hasError('required')">
+      <input matInput formControlName="name" />
+      <mat-error *ngIf="teacherForm.get('name')?.hasError('required')">
         Введіть ім’я
       </mat-error>
     </mat-form-field>
