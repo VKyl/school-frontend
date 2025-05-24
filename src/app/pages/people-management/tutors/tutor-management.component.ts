@@ -14,30 +14,30 @@ import TutorItemComponent from './tutor-item/tutor-item.component';
 import {MatDialog} from '@angular/material/dialog';
 import {UpsertModalComponent} from './modals/upsert-modal/upsert-modal.component';
 import {filter, first} from 'rxjs';
-import {UserService} from '../../../core/user.service';
+// import {UserService} from '../../../core/school.service';
 
 const mockTutors: Tutor[] = [
-    {
-      id: "1",
-      name: 'Alice Johnson',
-      email: 'alice@example.com',
-      subject: "Math",
-      userRole: UserRole.TEACHER
-    },
-    {
-      id: "2",
-      name: 'Bob Smith',
-      email: 'bob@example.com',
-      subject: "Math",
-      userRole: UserRole.TEACHER
-    },
-    {
-      id: "3",
-      name: 'Carol White',
-      email: 'carol@example.com',
-      subject: "Math",
-      userRole: UserRole.TEACHER
-    }
+  {
+    id: "1",
+    name: 'Alice Johnson',
+    email: 'alice@example.com',
+    subject: "Math",
+    userRole: UserRole.TEACHER
+  },
+  {
+    id: "2",
+    name: 'Bob Smith',
+    email: 'bob@example.com',
+    subject: "Math",
+    userRole: UserRole.TEACHER
+  },
+  {
+    id: "3",
+    name: 'Carol White',
+    email: 'carol@example.com',
+    subject: "Math",
+    userRole: UserRole.TEACHER
+  }
 ];
 
 @Component({
@@ -60,7 +60,7 @@ const mockTutors: Tutor[] = [
 })
 export default class TutorManagementComponent {
   private readonly dialog = inject(MatDialog);
-  private readonly service = inject(UserService);
+  // private readonly service = inject(UserService);
 
   $tutors = signal(mockTutors);
 
@@ -74,11 +74,11 @@ export default class TutorManagementComponent {
       )
       .subscribe(result => {
         console.log('Новий викладач:', result);
-        this.service.create(result, UserRole.TEACHER).subscribe();
+        // this.service.create(result, UserRole.TEACHER).subscribe();
       });
   }
 
-  saveEdit(tutor: Tutor){
+  saveEdit(tutor: Tutor) {
     this.$tutors.update(
       (prev) => {
         return prev.map(

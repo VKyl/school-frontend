@@ -1,4 +1,4 @@
-import {Component, inject, signal} from '@angular/core';
+import {Component, inject, OnInit, signal} from '@angular/core';
 import {
   MatAccordion,
   MatExpansionPanel,
@@ -10,32 +10,36 @@ import {MatButtonModule, MatIconButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
 import {MatDialog} from '@angular/material/dialog';
 import {UpsertModalComponent} from './modals/upsert-modal/upsert-modal.component';
-import {filter, first} from 'rxjs';
+import {filter, first, Observable, switchMap} from 'rxjs';
 import {HeadTutor} from '../../../core/models/users.dto';
 import HeadTutorItemComponent from './head-tutor-item/head-tutor-item.component';
-import {UserService} from '../../../core/user.service';
+import {SchoolService} from '../../../core/school.service';
 import {UserRole} from '../../../core/models/constants';
+import {LoadingControl} from '../../../core/models/loading-control/loading-control.model';
+import {IndicateLoading} from '../../../core/decorators/indicate-loading.decorator';
+import {SchoolDto} from './models/constants';
+import {MatProgressBar} from '@angular/material/progress-bar';
 
-const mockTutors: HeadTutor[] = [
-    {
-      id: "1",
-      name: 'Alice Johnson',
-      email: 'alice@example.com',
-      userRole: UserRole.HEAD_TEACHER
-    },
-    {
-      id: "2",
-      name: 'Bob Smith',
-      email: 'bob@example.com',
-      userRole: UserRole.HEAD_TEACHER
-    },
-    {
-      id: "3",
-      name: 'Carol White',
-      email: 'carol@example.com',
-      userRole: UserRole.HEAD_TEACHER
-    }
-];
+// const mockTutors: HeadTutor[] = [
+//   {
+//     id: "1",
+//     name: 'Alice Johnson',
+//     email: 'alice@example.com',
+//     userRole: UserRole.HEAD_TEACHER
+//   },
+//   {
+//     id: "2",
+//     name: 'Bob Smith',
+//     email: 'bob@example.com',
+//     userRole: UserRole.HEAD_TEACHER
+//   },
+//   {
+//     id: "3",
+//     name: 'Carol White',
+//     email: 'carol@example.com',
+//     userRole: UserRole.HEAD_TEACHER
+//   }
+// ];
 
 @Component({
   selector: 'app-head-tutor-management',
@@ -51,15 +55,36 @@ const mockTutors: HeadTutor[] = [
     MatIcon,
     MatIconButton,
     HeadTutorItemComponent,
+    MatProgressBar,
   ],
   templateUrl: './head-tutor-management.component.html',
   styleUrl: './head-tutor-management.component.css'
 })
-export default class HeadTutorManagementComponent {
+export default class HeadTutorManagementComponent implements OnInit {
   private readonly dialog = inject(MatDialog)
-  private readonly service = inject(UserService);
+  private readonly schoolService = inject(SchoolService);
 
-  $tutors = signal(mockTutors);
+  $schools = signal<SchoolDto[]>([]);
+
+  static loadingControl = new LoadingControl();
+  $isLoading = HeadTutorManagementComponent.loadingControl.$loading;
+
+  ngOnInit() {
+    this.reloadSchools();
+  }
+
+  private reloadSchools() {
+    this.getListOfSchools$()
+      .subscribe({
+        next: (res) => this.$schools.set(res)
+      });
+  }
+
+  @IndicateLoading(HeadTutorManagementComponent.loadingControl)
+  private getListOfSchools$(): Observable<SchoolDto[]> {
+    return this.schoolService.getListOfSchools()
+      .pipe(first())
+  }
 
   openCreateTeacherDialog() {
     const dialogRef = this.dialog.open(UpsertModalComponent);
@@ -67,21 +92,13 @@ export default class HeadTutorManagementComponent {
     dialogRef.afterClosed()
       .pipe(
         first(),
-        filter(res => !!res)
+        filter(res => !!res),
+        switchMap((res) => this.schoolService.create(res))
       )
-      .subscribe(result => {
-        console.log('Новий зауч:', result);
-        this.service.create(result, UserRole.HEAD_TEACHER).subscribe();
-      });
+      .subscribe(() => this.reloadSchools());
   }
 
-  saveEdit(tutor: HeadTutor){
-    this.$tutors.update(
-      (prev) => {
-        return prev.map(
-          (t) => t.id === tutor.id ? {...tutor} : t
-        );
-      }
-    )
+  edit() {
+    this.reloadSchools()
   }
 }

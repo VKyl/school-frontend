@@ -11,6 +11,7 @@ import {MatButton} from '@angular/material/button';
 import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatError, MatFormField, MatInput, MatLabel} from '@angular/material/input';
 import {NgIf} from '@angular/common';
+import {CreateSchoolDto} from '../../models/constants';
 
 @Component({
   selector: 'app-upsert-modal',
@@ -34,11 +35,12 @@ import {NgIf} from '@angular/common';
 export class UpsertModalComponent implements OnInit{
   private readonly fb = inject(FormBuilder);
   private readonly dialogRef = inject(MatDialogRef<UpsertModalComponent>);
-  readonly data = inject(MAT_DIALOG_DATA);
+  readonly data = inject<CreateSchoolDto>(MAT_DIALOG_DATA);
 
   teacherForm = this.fb.group({
     name: ['', Validators.required],
-    email: ['', [Validators.required, Validators.email]],
+    headTeacherPib: ['', Validators.required],
+    headTeacherEmail: ['', [Validators.required, Validators.email]],
   });
 
   ngOnInit() {
@@ -54,5 +56,4 @@ export class UpsertModalComponent implements OnInit{
   onCancel() {
     this.dialogRef.close();
   }
-
 }

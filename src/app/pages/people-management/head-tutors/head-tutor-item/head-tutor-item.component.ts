@@ -13,6 +13,7 @@ import {UserDeleteModalComponent} from '../modals/user-delete-modal/user-delete-
 import {filter, first} from 'rxjs';
 import {UpsertModalComponent} from '../modals/upsert-modal/upsert-modal.component';
 import {HeadTutor} from '../../../../core/models/users.dto';
+import {SchoolDto} from '../models/constants';
 
 @Component({
   selector: 'app-head-tutor-item',
@@ -30,7 +31,7 @@ import {HeadTutor} from '../../../../core/models/users.dto';
   styleUrl: './head-tutor-item.component.css'
 })
 export default class HeadTutorItemComponent {
-  @Input({required: true}) headTutor!: HeadTutor;
+  @Input({required: true}) school!: SchoolDto;
   @Output() onEdit = new EventEmitter<HeadTutor>();
 
   private readonly modal = inject(MatDialog);
@@ -38,13 +39,13 @@ export default class HeadTutorItemComponent {
   edit(e: MouseEvent){
     e.stopPropagation();
     this.modal.open(UpsertModalComponent, {
-      data: this.headTutor
+      data: this.school
     }).afterClosed().pipe(
       first(),
       filter(de => !!de)
    ).subscribe(
       (res) => {
-        this.onEdit.emit({id: this.headTutor.id, ...res});
+        this.onEdit.emit();
       }
    );
   }
@@ -53,8 +54,8 @@ export default class HeadTutorItemComponent {
     e.stopPropagation();
    this.modal.open(UserDeleteModalComponent, {
      data: {
-       name: this.headTutor.name,
-       email: this.headTutor.email
+       name: this.school.name,
+       // email: this.headTutor.email
      }
    }).afterClosed().pipe(
       first(),

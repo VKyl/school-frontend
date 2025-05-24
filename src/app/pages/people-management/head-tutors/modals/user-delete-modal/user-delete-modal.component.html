@@ -5,7 +5,7 @@
   </div>
 </h2>
 <mat-dialog-content>
- Видалити зауча <strong>{{data.name}} - {{data.email}}</strong>?
+ Видалити зауча <strong>{{data.name}}{{data.email ? ('-' + data.email) : ''}}</strong>?
 </mat-dialog-content>
 <mat-dialog-actions class="p-4">
   <button mat-button  mat-raised-button color="primary" cdkFocusInitial (click)="confirm()">Підтвердити</button>

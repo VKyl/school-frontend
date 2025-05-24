@@ -1,14 +1,17 @@
 <div class="content-container">
   <div class="mb-4 text-end">
   <button mat-raised-button color="primary" (click)="openCreateTeacherDialog()">
-    + Створити зауча
+    + Створити Школу
   </button>
 </div>
 <div class="management-container">
   <app-head-tutor-item
-    *ngFor="let t of $tutors()"
-    [headTutor]="t"
-    (onEdit)="saveEdit($event)"
+    *ngFor="let t of $schools()"
+    [school]="t"
+    (onEdit)="edit()"
   />
+  @if ($isLoading()) {
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  }
 </div>
 </div>

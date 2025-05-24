@@ -30,7 +30,9 @@ export class AuthService {
   }
 
   reloadUser() {
-    return this.http.get<LoginResponse>(`${environment.apiUrl}/api/auth/get_current_role`)
+    return this.http.get<LoginResponse>(`${environment.apiUrl}/api/auth/get_current_role`, {
+      withCredentials: true
+    })
       .pipe(
         catchError(() => {
           this.logout();

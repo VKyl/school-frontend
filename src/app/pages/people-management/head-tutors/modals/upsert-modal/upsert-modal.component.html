@@ -1,22 +1,30 @@
-<h2 mat-dialog-title>Створення зауча</h2>
+<h2 mat-dialog-title>Створення школи</h2>
 
 <mat-dialog-content class="mat-typography" [formGroup]="teacherForm">
   <div class="d-flex flex-column">
     <mat-form-field appearance="fill" class="w-full mb-4">
-      <mat-label>ПІБ</mat-label>
+      <mat-label>Назва школи</mat-label>
       <input matInput formControlName="name" />
       <mat-error *ngIf="teacherForm.get('name')?.hasError('required')">
-        Введіть ім’я
+        Назва обов'язкова
       </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="w-full mb-4">
-      <mat-label>Email</mat-label>
-      <input matInput formControlName="email" />
-      <mat-error *ngIf="teacherForm.get('email')?.hasError('required')">
+      <mat-label>ПІБ завуч</mat-label>
+      <input matInput formControlName="headTeacherPib" />
+      <mat-error *ngIf="teacherForm.get('headTeacherPib')?.hasError('required')">
+        ПІБ завуча обов'язкова
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-full mb-4">
+      <mat-label>Пошта завуча</mat-label>
+      <input matInput formControlName="headTeacherEmail" />
+      <mat-error *ngIf="teacherForm.get('headTeacherEmail')?.hasError('required')">
         Введіть email
       </mat-error>
-      <mat-error *ngIf="teacherForm.get('email')?.hasError('email')">
+      <mat-error *ngIf="teacherForm.get('headTeacherEmail')?.hasError('email')">
         Невірний формат email
       </mat-error>
     </mat-form-field>

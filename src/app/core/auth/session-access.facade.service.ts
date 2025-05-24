@@ -13,10 +13,8 @@ export class SessionAccessFacadeService {
   }
 
   public hasRoleAccess(requiredRoles: UserRole | Array<UserRole>) {
-    console.log(requiredRoles, this.user)
     if (!this.user) return false;
     requiredRoles = Array.isArray(requiredRoles) ? requiredRoles : [requiredRoles];
-    console.log(requiredRoles, [this.user.role], [this.user.role].some(role => requiredRoles.includes(role)));
     return [this.user.role].some(role => requiredRoles.includes(role));
   }
 }
