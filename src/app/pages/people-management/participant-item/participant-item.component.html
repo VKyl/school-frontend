@@ -12,8 +12,8 @@
     </mat-expansion-panel-header>
 
     <div>
-      <p>
-        <strong>Group Number:</strong> {{ participant.group }}
+      <p *ngIf="config.getFieldByName('group')">
+        <strong>Group Number:</strong> {{ $any(participant).group }}
       </p>
     </div>
   </mat-expansion-panel>

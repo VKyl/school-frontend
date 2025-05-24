@@ -7,7 +7,7 @@ import {
 } from '@angular/material/expansion';
 import {MatIconButton} from '@angular/material/button';
 import {NgIf} from '@angular/common';
-import {StudentViewDto, User} from '../models/users.dto';
+import {ParticipantViewDto, StudentViewDto, TutorViewDto, User} from '../models/users.dto';
 import {MatIcon} from '@angular/material/icon';
 import {BaseUserConfig} from '../config/people-config';
 
@@ -27,6 +27,10 @@ import {BaseUserConfig} from '../config/people-config';
   styleUrl: './participant-item.component.css'
 })
 export default class ParticipantItemComponent {
-  @Input({required: true}) participant!: StudentViewDto | ;
-  @Input({required: true}) config!: BaseUserConfig<User>;
+  @Input({required: true}) participant!: ParticipantViewDto;
+  @Input({required: true}) config!: BaseUserConfig<any>;
+
+  click(e: MouseEvent) {
+    e.stopPropagation();
+  }
 }

@@ -20,3 +20,5 @@ export type Student = User & {
 export type StudentViewDto = UserViewDto & {
   group: string;
 }
+
+export type ParticipantViewDto = StudentViewDto | TutorViewDto;

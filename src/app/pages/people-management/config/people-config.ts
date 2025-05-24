@@ -1,8 +1,8 @@
 import {BaseConfig} from '../../../shared/base-config';
-import {Student, Tutor, User} from '../models/users.dto';
+import {ParticipantViewDto, Student, Tutor, User, UserViewDto} from '../models/users.dto';
 
 
-export abstract class BaseUserConfig<T extends User> extends BaseConfig<T> {
+export abstract class BaseUserConfig<T extends UserViewDto> extends BaseConfig<T> {
   constructor(){
     super();
     this.getOrCreateField("name", {title: "Name"});
