@@ -1,0 +1,36 @@
+<mat-toolbar color="primary" class="mat-elevation-z4">
+
+  <button mat-icon-button (click)="toggleSidenav()" class="me-2 hide-desktop">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <span class="site-title">📚 School Portal</span>
+
+  <span class="spacer"></span>
+
+  <!-- Навігація -->
+  <nav class="hide-mobile">
+    <a mat-button routerLink="/dashboard">Головна</a>
+    <a mat-button routerLink="/teachers">Викладачі</a>
+    <a mat-button routerLink="/students">Учні</a>
+    <a mat-button routerLink="/subjects">Предмети</a>
+    <a mat-button routerLink="/homeworks">Домашки</a>
+  </nav>
+
+  <!-- Меню користувача -->
+  <button mat-icon-button [matMenuTriggerFor]="userMenu">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+
+  <mat-menu #userMenu="matMenu">
+    <button mat-menu-item disabled>
+      <mat-icon>person</mat-icon>
+      {{ userRole }}
+    </button>
+    <button mat-menu-item (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      Вийти
+    </button>
+  </mat-menu>
+
+</mat-toolbar>
