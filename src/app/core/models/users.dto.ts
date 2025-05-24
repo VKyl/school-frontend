@@ -1,7 +1,15 @@
+export enum UserRole {
+  ADMIN,
+  HEAD_TEACHER,
+  TEACHER,
+  STUDENT
+}
+
 export type User = {
   id: string;
   name: string;
   email: string;
+  userRole: UserRole;
 }
 
 export type UserViewDto = {

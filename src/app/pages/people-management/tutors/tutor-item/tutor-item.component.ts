@@ -7,7 +7,7 @@ import {
 } from '@angular/material/expansion';
 import {MatIconButton} from '@angular/material/button';
 import {NgIf} from '@angular/common';
-import {Tutor} from '../../models/users.dto';
+import {Tutor} from '../../../../core/models/users.dto';
 import {MatIcon} from '@angular/material/icon';
 import {MatDialog} from '@angular/material/dialog';
 import {UserDeleteModalComponent} from '../modals/user-delete-modal/user-delete-modal.component';

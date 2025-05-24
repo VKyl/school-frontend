@@ -12,7 +12,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {UserDeleteModalComponent} from '../modals/user-delete-modal/user-delete-modal.component';
 import {filter, first} from 'rxjs';
 import {UpsertModalComponent} from '../modals/upsert-modal/upsert-modal.component';
-import {HeadTutor} from '../../models/users.dto';
+import {HeadTutor} from '../../../../core/models/users.dto';
 
 @Component({
   selector: 'app-head-tutor-item',

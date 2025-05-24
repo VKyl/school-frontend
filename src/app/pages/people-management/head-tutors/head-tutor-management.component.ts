@@ -11,24 +11,28 @@ import {MatIcon} from '@angular/material/icon';
 import {MatDialog} from '@angular/material/dialog';
 import {UpsertModalComponent} from './modals/upsert-modal/upsert-modal.component';
 import {filter, first} from 'rxjs';
-import {HeadTutor} from '../models/users.dto';
+import {HeadTutor, UserRole} from '../../../core/models/users.dto';
 import HeadTutorItemComponent from './head-tutor-item/head-tutor-item.component';
+import {UserService} from '../../../core/models/user.service';
 
 const mockTutors: HeadTutor[] = [
     {
       id: "1",
       name: 'Alice Johnson',
       email: 'alice@example.com',
+      userRole: UserRole.HEAD_TEACHER
     },
     {
       id: "2",
       name: 'Bob Smith',
       email: 'bob@example.com',
+      userRole: UserRole.HEAD_TEACHER
     },
     {
       id: "3",
       name: 'Carol White',
       email: 'carol@example.com',
+      userRole: UserRole.HEAD_TEACHER
     }
 ];
 
@@ -52,6 +56,7 @@ const mockTutors: HeadTutor[] = [
 })
 export default class HeadTutorManagementComponent {
   private readonly dialog = inject(MatDialog)
+  private readonly service = inject(UserService);
 
   $tutors = signal(mockTutors);
 
@@ -64,7 +69,8 @@ export default class HeadTutorManagementComponent {
         filter(res => !!res)
       )
       .subscribe(result => {
-        console.log('Новий викладач:', result);
+        console.log('Новий зауч:', result);
+        this.service.create(result, UserRole.HEAD_TEACHER);
       });
   }
 
