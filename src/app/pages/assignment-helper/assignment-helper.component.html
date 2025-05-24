@@ -1,0 +1,26 @@
+<div class="chat-layout mat-elevation-z2">
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidenav mode="side" opened class="sidenav">
+      <h3 class="sidenav-title">Історія чатів</h3>
+      <mat-nav-list>
+        <mat-list-item *ngFor="let chat of mockChats">
+          <div class="chat-item-wrapper">
+            <mat-icon matListIcon>chat</mat-icon>
+            <span matLine>{{ chat }}</span>
+          </div>
+        </mat-list-item>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content class="chat-content">
+      <div class="chat-wrapper">
+        <div class="chat-feed">
+          <div class="empty-chat">
+            <h2>Опишіть своє завдання, і ми допоможемо побудувати шлях до розв'язання</h2>
+          </div>
+        </div>
+      <app-chat-input/>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

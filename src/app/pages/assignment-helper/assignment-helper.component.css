@@ -1,0 +1,47 @@
+.chat-layout {
+  height: calc(100vh - 64px);
+  display: flex;
+}
+
+.chat-wrapper {
+  display: flex;
+  flex-direction: column;
+  .chat-feed {
+    flex: 1;
+  }
+}
+
+.sidenav-container {
+  height: 100%;
+  width: 100%;
+}
+
+.sidenav {
+  width: 250px;
+  padding: 1rem;
+  background-color: #f5f5f5;
+}
+
+.sidenav-title {
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.chat-content {
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  background: #ffffff;
+}
+
+.empty-chat {
+  text-align: center;
+  color: #777;
+  font-size: 1.4rem;
+}
+
+.chat-item-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}

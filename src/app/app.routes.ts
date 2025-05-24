@@ -20,6 +20,11 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/login/login.component')
   },
   {
+    title: "Assignment Helper",
+    path: "assignment-helper",
+    loadComponent: () => import("./pages/assignment-helper/assignment-helper.component")
+  },
+  {
     title: "Not Found",
     path: "**",
     loadComponent: () => import('./pages/not-found/not-found.component')

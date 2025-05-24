@@ -1,0 +1,13 @@
+<div class="chat-input-wrapper">
+  <div class="native-chat-input">
+  <input
+    type="text"
+    placeholder="Напишіть повідомлення..."
+    [(ngModel)]="message"
+    (keyup.enter)="sendMessage()"
+  />
+  <button (click)="sendMessage()" [disabled]="!message.trim()" aria-label="Send">
+    ➤
+  </button>
+</div>
+</div>

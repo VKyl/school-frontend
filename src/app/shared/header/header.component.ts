@@ -55,6 +55,10 @@ export default class HeaderComponent {
           {
             label: 'Заучі',
             link: '/manage-participants/head-tutors'
+          },
+          {
+            label: 'Персональний помічник',
+            link: 'assignment-helper'
           }
         ]);
       }
