@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, inject, Input} from '@angular/core';
 import {
   MatAccordion,
   MatExpansionPanel,
@@ -7,9 +7,12 @@ import {
 } from '@angular/material/expansion';
 import {MatIconButton} from '@angular/material/button';
 import {NgIf} from '@angular/common';
-import {ParticipantViewDto, StudentViewDto, TutorViewDto, User} from '../models/users.dto';
+import {ParticipantViewDto} from '../models/users.dto';
 import {MatIcon} from '@angular/material/icon';
 import {BaseUserConfig} from '../config/people-config';
+import {MatDialog} from '@angular/material/dialog';
+import {UserDeleteModalComponent} from '../modals/user-delete-modal/user-delete-modal.component';
+import {filter, first} from 'rxjs';
 
 @Component({
   selector: 'app-participant-item',
@@ -30,7 +33,28 @@ export default class ParticipantItemComponent {
   @Input({required: true}) participant!: ParticipantViewDto;
   @Input({required: true}) config!: BaseUserConfig<any>;
 
-  click(e: MouseEvent) {
+  private readonly modal = inject(MatDialog);
+
+  edit(e: MouseEvent){
     e.stopPropagation();
+    console.log("edit")
+  }
+
+  delete(e: MouseEvent){
+    e.stopPropagation();
+   this.modal.open(UserDeleteModalComponent, {
+     data: {
+       name: this.participant.name,
+       email: this.participant.email
+     }
+   }).afterClosed().pipe(
+      first(),
+      filter(de => !!de)
+   ).subscribe(
+      (res) => {
+        console.log(res);
+      }
+   );
+
   }
 }

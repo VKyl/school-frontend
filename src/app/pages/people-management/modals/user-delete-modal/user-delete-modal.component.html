@@ -1,0 +1,8 @@
+<h2 mat-dialog-title><mat-icon>warning</mat-icon> participant</h2>
+<mat-dialog-content>
+  Delete participant {{data.name}} - {{data.email}}?
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close cdkFocusInitial (click)="confirm()">Confirm</button>
+  <button mat-button mat-dialog-close (click)="dismiss()">Dismiss</button>
+</mat-dialog-actions>
