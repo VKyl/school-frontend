@@ -10,5 +10,5 @@ html, body {
 }
 
 .main-content {
-  flex: 1; /* Fills the remaining space */
+  flex: 1;
 }

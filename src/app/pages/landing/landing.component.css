@@ -11,6 +11,48 @@
   text-align: center;
 }
 
+.star {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  opacity: 0.8;
+  animation: float 4s ease-in-out infinite;
+}
+
+.star-top-left {
+  top: 20px;
+  left: 20px;
+  animation-delay: 0s;
+}
+
+.star-top-right {
+  top: 30px;
+  right: 40px;
+  animation-delay: 1s;
+}
+
+.star-bottom-left {
+  bottom: 20px;
+  left: 40px;
+  animation-delay: 2s;
+}
+
+.star-bottom-right {
+  bottom: 30px;
+  right: 20px;
+  animation-delay: 3s;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-10px) scale(1.1);
+  }
+}
+
+
 .hero-content {
   z-index: 10;
   padding: 20px;
@@ -41,36 +83,3 @@
   }
 }
 
-
-/* Starfield Animation */
-.stars, .stars2, .stars3 {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: transparent url('/assets/stars.svg') repeat;
-  z-index: 0;
-  animation: moveStars 200s linear infinite;
-}
-
-.stars2 {
-  background-image: url('/assets/stars2.svg');
-  animation-duration: 300s;
-  opacity: 0.5;
-}
-
-.stars3 {
-  background-image: url('/assets/stars3.svg');
-  animation-duration: 400s;
-  opacity: 0.3;
-}
-
-@keyframes moveStars {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(-1000px);
-  }
-}
