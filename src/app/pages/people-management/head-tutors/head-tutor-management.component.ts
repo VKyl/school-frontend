@@ -11,7 +11,7 @@ import {MatIcon} from '@angular/material/icon';
 import {MatDialog} from '@angular/material/dialog';
 import {UpsertModalComponent} from './modals/upsert-modal/upsert-modal.component';
 import {filter, first} from 'rxjs';
-import {HeadTutor, Tutor} from '../models/users.dto';
+import {HeadTutor} from '../models/users.dto';
 import HeadTutorItemComponent from './head-tutor-item/head-tutor-item.component';
 
 const mockTutors: HeadTutor[] = [

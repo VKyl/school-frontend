@@ -8,12 +8,11 @@ import {
 import {NgFor, NgIf} from '@angular/common';
 import {MatButtonModule, MatIconButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
-import {Tutor, TutorViewDto} from '../models/users.dto';
+import {Tutor} from '../models/users.dto';
 import TutorItemComponent from './tutor-item/tutor-item.component';
 import {MatDialog} from '@angular/material/dialog';
 import {UpsertModalComponent} from './modals/upsert-modal/upsert-modal.component';
 import {filter, first} from 'rxjs';
-import {log} from '@angular-devkit/build-angular/src/builders/ssr-dev-server';
 
 const mockTutors: Tutor[] = [
     {
