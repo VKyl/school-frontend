@@ -2,8 +2,8 @@
   position: relative;
   min-height: 100vh;
   overflow: hidden;
-  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
-  color: white;
+  background: radial-gradient(ellipse at bottom, #e8f0fe 0%, #ffffff 100%);
+  color: #5a5a5a;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,26 +20,26 @@
 }
 
 .star-top-left {
-  top: 20px;
-  left: 20px;
+  top: 40px;
+  left: 40px;
   animation-delay: 0s;
 }
 
 .star-top-right {
-  top: 30px;
-  right: 40px;
+  top: 50px;
+  right: 60px;
   animation-delay: 1s;
 }
 
 .star-bottom-left {
-  bottom: 20px;
-  left: 40px;
+  bottom: 40px;
+  left: 60px;
   animation-delay: 2s;
 }
 
 .star-bottom-right {
-  bottom: 30px;
-  right: 20px;
+  bottom: 50px;
+  right: 40px;
   animation-delay: 3s;
 }
 
