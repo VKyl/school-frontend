@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {
   MatAccordion,
   MatExpansionPanel,
@@ -6,15 +6,18 @@ import {
   MatExpansionPanelTitle
 } from '@angular/material/expansion';
 import {NgFor, NgIf} from '@angular/common';
-import {MatButton, MatIconButton} from '@angular/material/button';
+import {MatButton, MatButtonModule, MatIconButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
-import {BaseUserConfig, StudentConfig, TutorConfig} from './config/people-config';
-import {Student, StudentViewDto, Tutor, TutorViewDto, User} from './models/users.dto';
+import {StudentConfig, TutorConfig} from './config/people-config';
+import {StudentViewDto, TutorViewDto} from './models/users.dto';
 import ParticipantItemComponent from './participant-item/participant-item.component';
+import {MatDialog} from '@angular/material/dialog';
+import {UpsertModalComponent} from './upsert-modal/upsert-modal.component';
+import {filter, first} from 'rxjs';
 
 enum USER_TYPES {
- STUDENT = "STUDENT",
- TUTOR = "TUTOR"
+  STUDENT = "STUDENT",
+  TUTOR = "TUTOR"
 }
 
 const userConfigResolver = {
@@ -32,7 +35,7 @@ const userConfigResolver = {
     MatExpansionPanelHeader,
     NgFor,
     NgIf,
-    MatButton,
+    MatButtonModule,
     MatIcon,
     MatIconButton,
     ParticipantItemComponent
@@ -41,6 +44,8 @@ const userConfigResolver = {
   styleUrl: './people-management.component.css'
 })
 export default class PeopleManagementComponent {
+  private readonly dialog = inject(MatDialog)
+
   participants: (TutorViewDto | StudentViewDto)[] = [
     {
       name: 'Alice Johnson',
@@ -59,12 +64,25 @@ export default class PeopleManagementComponent {
   ];
 
   public resolveConfig(participant: StudentViewDto | TutorViewDto): StudentConfig | TutorConfig {
-    if(participant.hasOwnProperty('group'))
+    if (participant.hasOwnProperty('group'))
       return new userConfigResolver[USER_TYPES.STUDENT]();
     return new userConfigResolver[USER_TYPES.TUTOR]();
   }
 
   click(e: MouseEvent) {
     e.stopPropagation();
+  }
+
+  openCreateTeacherDialog() {
+    const dialogRef = this.dialog.open(UpsertModalComponent);
+
+    dialogRef.afterClosed()
+      .pipe(
+        first(),
+        filter(res => !!res)
+      )
+      .subscribe(result => {
+        console.log('Новий викладач:', result);
+      });
   }
 }
