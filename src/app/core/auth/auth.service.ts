@@ -1,6 +1,6 @@
 // src/app/auth/auth.service.ts
-import { Injectable } from '@angular/core';
-import {map, Observable, of, throwError} from 'rxjs';
+import {Injectable, signal} from '@angular/core';
+import {BehaviorSubject, map, Observable, of, throwError} from 'rxjs';
 import { delay, tap } from 'rxjs/operators';
 
 export interface AuthResponse {
@@ -13,7 +13,9 @@ export interface AuthResponse {
   providedIn: 'root',
 })
 export class AuthService {
-  constructor() {}
+
+  $user= signal<any>(null);
+  userDataLoaded$ = new BehaviorSubject<boolean>(false);
 
   login(credentials: { email?: string | null; password?: string | null }): Observable<AuthResponse> {
     // Simulate API call
@@ -56,8 +58,20 @@ export class AuthService {
     console.log('User logged out');
   }
 
+  getUser() {
+    return this.$user();
+  }
+
+  setUser(user: any) {
+    this.$user.set(user);
+  }
+
   isAuthenticated(): boolean {
     return !!localStorage.getItem('authToken');
+  }
+
+  setUserDataAsLoaded(): void {
+    this.userDataLoaded$.next(true);
   }
 
   getUsername(): string | null {
