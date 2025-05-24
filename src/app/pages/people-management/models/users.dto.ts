@@ -9,6 +9,10 @@ export type UserViewDto = {
   email: string;
 }
 
+export type HeadTutor = User;
+
+export type HeadTutorViewDto = UserViewDto;
+
 export type Tutor = User & {subject: string};
 
 export type TutorViewDto = UserViewDto & {subject: string};

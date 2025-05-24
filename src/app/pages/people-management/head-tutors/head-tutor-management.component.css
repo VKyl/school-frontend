@@ -1,0 +1,10 @@
+
+.management-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.content-container {
+  padding: 16px;
+}

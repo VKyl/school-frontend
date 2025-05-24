@@ -1,0 +1,14 @@
+<div class="content-container">
+  <div class="mb-4 text-end">
+  <button mat-raised-button color="primary" (click)="openCreateTeacherDialog()">
+    + Створити зауча
+  </button>
+</div>
+<div class="management-container">
+  <app-head-tutor-item
+    *ngFor="let t of $tutors()"
+    [headTutor]="t"
+    (onEdit)="saveEdit($event)"
+  />
+</div>
+</div>

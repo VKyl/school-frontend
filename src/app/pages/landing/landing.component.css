@@ -13,7 +13,7 @@
 
 .subtitle{
   display: block;
-  padding: 5px;
+  padding: 5px 10px;
   max-width: fit-content;
   align-self: center;
   background: #3f51b5;

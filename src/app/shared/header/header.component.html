@@ -8,16 +8,15 @@
 
   <span class="spacer"></span>
 
-  <!-- Навігація -->
   <nav class="hide-mobile">
     <a mat-button routerLink="/">Головна</a>
+    <a mat-button routerLink="/manage-participants/head-tutors">Заучі</a>
     <a mat-button routerLink="/manage-participants">Викладачі</a>
     <a mat-button routerLink="/students">Учні</a>
     <a mat-button routerLink="/subjects">Предмети</a>
     <a mat-button routerLink="/homeworks">Домашки</a>
   </nav>
 
-  <!-- Меню користувача -->
   <button mat-icon-button [matMenuTriggerFor]="userMenu">
     <mat-icon>account_circle</mat-icon>
   </button>

@@ -1,5 +1,5 @@
 import {BaseConfig} from '../../../shared/base-config';
-import {ParticipantViewDto, Student, Tutor, User, UserViewDto} from '../../models/users.dto';
+import {ParticipantViewDto, Student, Tutor, User, UserViewDto} from '../models/users.dto';
 
 
 export abstract class BaseUserConfig<T extends UserViewDto> extends BaseConfig<T> {
